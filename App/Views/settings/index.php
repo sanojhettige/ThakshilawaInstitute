@@ -40,22 +40,6 @@
     </div>
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="name">Active Season</label>
-            <select class="form-control" name="active_season_id" id="active_season_id">
-                <option value="">Select Season</option>
-                <?php foreach($seasons as $item) { ?>
-                <?php if(get_post('active_season_id') == $item['id'] || $record['active_season_id'] == $item['id']) { ?>
-                <option selected value="<?= $item['id']; ?>"><?= $item['name']; ?></option>
-                <?php } else { ?>
-                <option value="<?= $item['id']; ?>"><?= $item['name']; ?></option>
-                <?php } ?>
-                <?php } ?>
-
-            </select>
-            <span
-                class="error-message"><?= isset($errors["active_season_id"]) ? $errors["active_season_id"]: ""; ?></span>
-        </div>
-        <div class="form-group col-md-6">
             <label for="currency_symbol">Currency Symbol</label>
             <input
                 value="<?= get_post('currency_symbol') ? get_post('currency_symbol') : ($record ? $record['currency_symbol'] : ''); ?>"

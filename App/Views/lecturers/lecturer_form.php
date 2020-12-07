@@ -1,16 +1,9 @@
 <form method="post" action="">
     <div class="form-group">
-        <label for="name">Customer Name</label>
+        <label for="name">Lecturer Name</label>
         <input value="<?= get_post('name') ? get_post('name') : ($record ? $record['name'] : ''); ?>" type="text"
             class="form-control" required id="name" name="name" placeholder="">
         <span class="error-message"><?= isset($errors["name"]) ? $errors["name"]: ""; ?></span>
-    </div>
-    <div class="form-group">
-        <label for="company_name">Compay Name</label>
-        <input
-            value="<?= get_post('company_name') ? get_post('company_name') : ($record ? $record['company_name'] : ''); ?>"
-            type="text" class="form-control" required id="company_name" name="company_name" placeholder="">
-        <span class="error-message"><?= isset($errors["company_name"]) ? $errors["company_name"]: ""; ?></span>
     </div>
     <div class="form-group">
         <label for="address">Address</label>
@@ -30,6 +23,13 @@
         <input value="<?= get_post('phone') ? get_post('phone') : ($record ? $record['phone_number'] : ''); ?>"
             type="text" class="form-control" required id="phone" name="phone" placeholder="">
         <span class="error-message"><?= isset($errors["phone"]) ? $errors["phone"]: ""; ?></span>
+    </div>
+    <div class="form-group">
+        <label for="nic_no">NIC No</label>
+        <input
+            value="<?= get_post('nic_no') ? get_post('nic_no') : ($record ? $record['nic_no'] : ''); ?>"
+            type="text" class="form-control" required id="nic_no" name="nic_no" placeholder="">
+        <span class="error-message"><?= isset($errors["nic_no"]) ? $errors["nic_no"]: ""; ?></span>
     </div>
 
 

@@ -5,7 +5,6 @@ Class Settings extends Controller {
     
     public function index($param=null) {
         $settings_model = $this->model->load('settings');
-        $this->data['seasons'] = $settings_model->getPaddySeasons(10,0, '')['data'];
         $this->data['record'] = $settings_model->getAppData();
 
         if(isset($_POST['submit'])) {

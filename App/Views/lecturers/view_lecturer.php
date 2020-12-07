@@ -1,7 +1,7 @@
 <form method="post" action="">
     <table class="table table-bordered">
         <tr>
-            <td>Customer Name</td>
+            <td>Lecturer Name</td>
             <td><?= ($record ? $record['name'] : ''); ?></td>
         </tr>
         <tr>
@@ -9,8 +9,8 @@
             <td><?= ($record ? $record['address'] : ''); ?></td>
         </tr>
         <tr>
-            <td>Company Name</td>
-            <td><?= ($record ? $record['company_name'] : ''); ?></td>
+            <td>NIC No</td>
+            <td><?= ($record ? $record['nic_no'] : ''); ?></td>
         </tr>
         <tr>
             <td>Phone Number</td>
@@ -27,6 +27,6 @@
     <?php if($record['id'] > 0 && $canDelete) { ?>
     <button type="submit" name="submit" value="1" class="btn btn-danger">Delete</button>
     <?php } ?>
-    <a href="/customers" class="btn btn-default">Back To List</a>
+    <a href="/lecturers" class="btn btn-default">Back To List</a>
 
 </form>
