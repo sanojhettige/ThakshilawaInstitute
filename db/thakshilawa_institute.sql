@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Nov 21, 2020 at 07:15 PM
+-- Generation Time: Dec 15, 2020 at 10:17 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.4.2
 
@@ -68,13 +68,40 @@ CREATE TABLE `attendance` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `classes`
+-- Table structure for table `cafeteria_transactions`
 --
 
-CREATE TABLE `classes` (
+CREATE TABLE `cafeteria_transactions` (
   `id` int(11) NOT NULL,
-  `class_code` int(11) NOT NULL,
-  `class_name` int(11) NOT NULL,
+  `transaction_type` int(1) NOT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `amount` decimal(11,2) NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `modified_by` int(11) NOT NULL,
+  `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cafeteria_transactions`
+--
+
+INSERT INTO `cafeteria_transactions` (`id`, `transaction_type`, `title`, `amount`, `description`, `created_by`, `created_at`, `modified_by`, `modified_at`, `status`) VALUES
+(1, 1, 'sfg', '100.00', 'sf', 1, '2020-12-15 10:13:05', 1, '2020-12-15 04:46:59', 4),
+(2, 2, 'bdfhb', '800.00', 'gr', 1, '2020-12-15 10:13:23', 1, '2020-12-15 04:46:04', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `classess`
+--
+
+CREATE TABLE `classess` (
+  `id` int(11) NOT NULL,
+  `class_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `class_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `lecturer_id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
   `start_time` time NOT NULL,
@@ -87,6 +114,13 @@ CREATE TABLE `classes` (
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `classess`
+--
+
+INSERT INTO `classess` (`id`, `class_code`, `class_name`, `lecturer_id`, `subject_id`, `start_time`, `end_time`, `notes`, `created_by`, `created_at`, `modified_by`, `modified_at`, `status`) VALUES
+(1, 'yhh', 'jhjh', 1, 1, '10:00:00', '12:00:00', 'dg', 1, '2020-12-07 11:07:40', 1, '2020-12-07 05:40:24', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -97,7 +131,7 @@ CREATE TABLE `lecturers` (
   `id` int(11) NOT NULL,
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `email_address` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `contact_number` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `phone_number` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `address` text COLLATE utf8_unicode_ci,
   `nic_no` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
@@ -106,6 +140,14 @@ CREATE TABLE `lecturers` (
   `modified_by` int(11) NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `lecturers`
+--
+
+INSERT INTO `lecturers` (`id`, `name`, `email_address`, `phone_number`, `address`, `nic_no`, `created_at`, `created_by`, `modified_at`, `modified_by`, `status`) VALUES
+(1, 'Lec 1', 'hs@df.sdf', '0713359819', 'hs', '7837459748', '2020-12-07 08:38:39', 1, '2020-12-07 03:10:55', 1, 1),
+(2, 'Lec 2', 's@fsdf.co', '0714356743', 'sdkh', '03643264324', '2020-12-07 08:41:22', 1, '2020-12-15 02:33:49', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -132,20 +174,48 @@ CREATE TABLE `permissions` (
   `users-edit` int(1) NOT NULL,
   `users-delete` int(1) NOT NULL,
   `users-get_users` int(1) NOT NULL,
-  `settings-index` int(1) NOT NULL
+  `lecturers-index` int(1) NOT NULL,
+  `lecturers-add` int(1) NOT NULL,
+  `lecturers-edit` int(1) NOT NULL,
+  `lecturers-delete` int(1) NOT NULL,
+  `lecturers-get_lecturers` int(1) NOT NULL,
+  `subjects-index` int(1) NOT NULL,
+  `subjects-add` int(1) NOT NULL,
+  `subjects-edit` int(1) NOT NULL,
+  `subjects-delete` int(1) NOT NULL,
+  `subjects-get_subjects` int(1) NOT NULL,
+  `students-index` int(1) NOT NULL,
+  `students-add` int(1) NOT NULL,
+  `students-edit` int(1) NOT NULL,
+  `students-delete` int(1) NOT NULL,
+  `students-get_students` int(1) NOT NULL,
+  `students-attendance` int(1) NOT NULL,
+  `classess-index` int(1) NOT NULL,
+  `classess-add` int(1) NOT NULL,
+  `classess-edit` int(1) NOT NULL,
+  `classess-delete` int(1) NOT NULL,
+  `classess-get_classess` int(1) NOT NULL,
+  `settings-index` int(1) NOT NULL,
+  `cafeteria-index` int(1) NOT NULL,
+  `cafeteria-add` int(1) NOT NULL,
+  `cafeteria-edit` int(1) NOT NULL,
+  `cafeteria-delete` int(1) NOT NULL,
+  `cafeteria-get_transactions` int(1) NOT NULL,
+  `cafeteria-expense` int(1) NOT NULL,
+  `cafeteria-income` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `permissions`
 --
 
-INSERT INTO `permissions` (`id`, `role_id`, `users-index`, `users-add`, `users-edit`, `users-delete`, `users-get_users`, `settings-index`) VALUES
-(1, 1, 1, 1, 1, 1, 1, 1),
-(2, 2, 1, 1, 1, 1, 1, 0),
-(3, 3, 0, 0, 0, 0, 0, 0),
-(4, 4, 0, 0, 0, 0, 0, 0),
-(5, 5, 0, 0, 0, 0, 0, 0),
-(6, 6, 0, 0, 0, 0, 0, 0);
+INSERT INTO `permissions` (`id`, `role_id`, `users-index`, `users-add`, `users-edit`, `users-delete`, `users-get_users`, `lecturers-index`, `lecturers-add`, `lecturers-edit`, `lecturers-delete`, `lecturers-get_lecturers`, `subjects-index`, `subjects-add`, `subjects-edit`, `subjects-delete`, `subjects-get_subjects`, `students-index`, `students-add`, `students-edit`, `students-delete`, `students-get_students`, `students-attendance`, `classess-index`, `classess-add`, `classess-edit`, `classess-delete`, `classess-get_classess`, `settings-index`, `cafeteria-index`, `cafeteria-add`, `cafeteria-edit`, `cafeteria-delete`, `cafeteria-get_transactions`, `cafeteria-expense`, `cafeteria-income`) VALUES
+(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0),
+(3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0),
+(4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -166,6 +236,13 @@ CREATE TABLE `students` (
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`id`, `name`, `address`, `gurdian_name`, `gurdian_contact_number`, `created_at`, `created_by`, `modified_at`, `modified_by`, `status`) VALUES
+(1, 'Student 1', 'jhsdfs d', 'rew', '0717643884', '2020-12-07 09:55:03', 1, '2020-12-07 16:25:03', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -176,6 +253,13 @@ CREATE TABLE `student_classes` (
   `student_id` int(11) NOT NULL,
   `class_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `student_classes`
+--
+
+INSERT INTO `student_classes` (`student_id`, `class_id`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -190,10 +274,17 @@ CREATE TABLE `subjects` (
   `notes` text COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
-  `modified_at` timestamp NOT NULL,
+  `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_by` int(11) NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `subjects`
+--
+
+INSERT INTO `subjects` (`id`, `subject_name`, `subject_code`, `notes`, `created_at`, `created_by`, `modified_at`, `modified_by`, `status`) VALUES
+(1, 'Subject 1', 'S1', 'sd', '2020-12-07 08:58:04', 1, '2020-12-07 03:29:31', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -264,13 +355,19 @@ ALTER TABLE `app_settings`
 ALTER TABLE `attendance`
   ADD PRIMARY KEY (`id`),
   ADD KEY `student_id` (`student_id`,`class_id`,`subject_id`),
-  ADD KEY `class_id` (`class_id`),
-  ADD KEY `subject_id` (`subject_id`);
+  ADD KEY `subject_id` (`subject_id`),
+  ADD KEY `class_id` (`class_id`);
 
 --
--- Indexes for table `classes`
+-- Indexes for table `cafeteria_transactions`
 --
-ALTER TABLE `classes`
+ALTER TABLE `cafeteria_transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `classess`
+--
+ALTER TABLE `classess`
   ADD PRIMARY KEY (`id`),
   ADD KEY `lecturer_id` (`lecturer_id`,`subject_id`);
 
@@ -333,10 +430,40 @@ ALTER TABLE `user_roles`
 --
 
 --
+-- AUTO_INCREMENT for table `cafeteria_transactions`
+--
+ALTER TABLE `cafeteria_transactions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `classess`
+--
+ALTER TABLE `classess`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `lecturers`
+--
+ALTER TABLE `lecturers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -358,23 +485,23 @@ ALTER TABLE `user_roles`
 -- Constraints for table `attendance`
 --
 ALTER TABLE `attendance`
-  ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
-  ADD CONSTRAINT `attendance_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`),
-  ADD CONSTRAINT `attendance_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`);
+  ADD CONSTRAINT `attendance_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`),
+  ADD CONSTRAINT `attendance_ibfk_4` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `attendance_ibfk_5` FOREIGN KEY (`class_id`) REFERENCES `classess` (`id`);
 
 --
 -- Constraints for table `lecturer_classes`
 --
 ALTER TABLE `lecturer_classes`
-  ADD CONSTRAINT `lecturer_classes_ibfk_1` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturers` (`id`),
-  ADD CONSTRAINT `lecturer_classes_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`);
+  ADD CONSTRAINT `lecturer_classes_ibfk_3` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturers` (`id`),
+  ADD CONSTRAINT `lecturer_classes_ibfk_4` FOREIGN KEY (`class_id`) REFERENCES `classess` (`id`);
 
 --
 -- Constraints for table `student_classes`
 --
 ALTER TABLE `student_classes`
-  ADD CONSTRAINT `student_classes_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`),
-  ADD CONSTRAINT `student_classes_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
+  ADD CONSTRAINT `student_classes_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `student_classes_ibfk_3` FOREIGN KEY (`class_id`) REFERENCES `classess` (`id`);
 
 --
 -- Constraints for table `users`

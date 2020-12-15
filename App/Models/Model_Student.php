@@ -54,4 +54,19 @@ Class Model_Student extends Model {
             ));
         }
     }
+
+    function getClassStudents($class_id=null) {
+        $sql = "SELECT s.id,s.name from ".$this->table." s ";
+        $sql .=" inner join student_classes sc on sc.student_id = s.id";
+        
+        $sql .=" where s.status = 1 and sc.class_id = ".$class_id;
+
+        $sql .=" order by s.name desc";
+
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        $records = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $records;
+    }
 }

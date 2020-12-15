@@ -351,3 +351,7 @@ body {
     width: 50%;
     margin: 0 auto;
 }
+
+.active_date {
+    background-color: #007bff !important;
+}

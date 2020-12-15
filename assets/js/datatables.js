@@ -172,4 +172,40 @@ $(document).ready(function() {
         ]
     });
 
+
+
+    $('#transaction_datatable').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": $("#transaction_datatable").attr("url"),
+            "type": "POST"
+        },
+        "columns": [
+            { "data": "id" },
+            { "data": "type" },
+            { "data": "title" },
+            { "data": "amount" },
+            { "data": "modified_at" },
+            {
+                "data": null,
+                className: "center",
+                render: function(data, type) {
+                    let content = "";
+                    content = '<div class="btn-group" role="group" aria-label="Action Button">';
+                    if (data.edit)
+                        content += '<a href="/cafeteria/edit/' + data.id + '" class="btn btn-info btn-sm">Edit</a>';
+
+                    if (data.view)
+                        content += '<a href="/cafeteria/view/' + data.id + '" class="btn btn-success btn-sm">View</a>';
+
+                    if (data.delete)
+                        content += '<a href="/cafeteria/delete/' + data.id + '" id="' + data.id + '" class="btn btn-danger btn-sm deleteRecord">Delete</a>';
+                    content += '</div>';
+                    return content;
+                }
+            }
+        ]
+    });
+
 });

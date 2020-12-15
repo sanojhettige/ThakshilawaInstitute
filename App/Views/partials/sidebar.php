@@ -52,14 +52,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/attendance">
+                        <a class="nav-link" href="/students/attendance">
                             <span class="nav-link-text">Attendance</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <?php } ?>
-            <?php if(in_array($userRole, array(4,3,2))) { ?>
+            <?php if(in_array($userRole, array(1,4,3,2))) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="/cafeteria">
                     <span data-feather="shopping-cart"></span>
@@ -83,6 +83,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/reports/expences">
                             <span class="nav-link-text">Expences</span>
+                        </a>
+                    </li>
+                    <?php } ?>
+                    <?php if(in_array($userRole, array(1))) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reports/attendance">
+                            <span class="nav-link-text">Attendance</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reports/schedule">
+                            <span class="nav-link-text">Class Schedule</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reports/income">
+                            <span class="nav-link-text">Income</span>
                         </a>
                     </li>
                     <?php } ?>

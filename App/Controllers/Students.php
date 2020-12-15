@@ -128,4 +128,46 @@ Class Students extends Controller {
             $this->data['error_message'] = $e;
         }
     }
+
+
+    public function attendance() {
+        $this->data['title'] = "Student Attendance";
+        $student_model = $this->model->load('student');
+        $class_model = $this->model->load('class');
+        $this->data['students'] = array();
+        $this->data['start_date'] = 1;
+        $this->data['end_date'] = 0;
+        $this->data['show_att'] = false;
+        $this->data['today'] = date('d');
+        $r = 0;
+        $this->data['months'] = months();
+
+        $this->data['years'] = array();
+
+        for($i=2019; $i<=date('Y'); $i++) {
+            $this->data['years'][$r]['id'] = $i;
+            $this->data['years'][$r]['title'] = $i;
+            $r++;
+        }
+        
+
+        $res = $class_model->getClassess(100,0, '');
+
+        $this->data['classess'] = $res['data'];
+
+        if(get_post('submit')) {
+            $this->data['students'] = $this->getClassStudents($student_model, get_post('class_id'));
+            $this->data['show_att'] = true;
+        }
+
+        if(get_post('year_id') && get_post('month_id')) {
+            $this->data['end_date'] = date('t', strtotime(get_post('year_id').'-'.get_post('month_id')));
+        }
+
+        $this->view->render("students/mark_attendance", "template", $this->data);
+    }
+
+    private function getClassStudents($model=null, $class_id=null) {
+        return $model->getClassStudents($class_id);
+    }
 }

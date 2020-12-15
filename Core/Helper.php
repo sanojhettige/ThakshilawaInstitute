@@ -131,3 +131,21 @@ function formatCurrency($dollars){
 
     return null;
 }
+
+
+function months() {
+    return array(
+        array('id'=>1,'title'=>'January'),
+        array('id'=>2,'title'=>'February'),
+        array('id'=>3,'title'=>'March'),
+        array('id'=>4,'title'=>'April'),
+        array('id'=>5,'title'=>'May'),
+        array('id'=>6,'title'=>'June'),
+        array('id'=>7,'title'=>'July'),
+        array('id'=>8,'title'=>'August'),
+        array('id'=>9,'title'=>'September'),
+        array('id'=>10,'title'=>'October'),
+        array('id'=>11,'title'=>'November'),
+        array('id'=>12,'title'=>'December'),
+    );
+}
