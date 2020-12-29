@@ -137,4 +137,74 @@ Class Users extends Controller {
             $this->data['error_message'] = $e;
         }
     }
+
+
+    public function attendance() {
+        $this->data['title'] = "Staff Attendance";
+        $user_model = $this->model->load('user');
+        $class_model = $this->model->load('class');
+        $this->data['staff'] = array();
+        $this->data['start_date'] = 1;
+        $this->data['end_date'] = 0;
+        $this->data['show_att'] = false;
+        $this->data['today'] = date('d');
+        $r = 0;
+        $this->data['months'] = months();
+
+        $this->data['years'] = array();
+
+        for($i=2019; $i<=date('Y'); $i++) {
+            $this->data['years'][$r]['id'] = $i;
+            $this->data['years'][$r]['title'] = $i;
+            $r++;
+        }
+
+        if(get_post('submit')) {
+            $this->data['staff'] = $user_model->getUsers(1000,0, null)["data"];
+            $this->data['show_att'] = true;
+            $attendance = $user_model->getMonthlyAttendance(get_post('year_id'), get_post('month_id'));
+            
+            $att_arr = array();
+            foreach($attendance as $index=>$row) {
+                $att_arr[$row['user_id']][$row['att_date']] = true;
+            }
+            // print_r($att_arr); exit;
+            $this->data['attendance'] = $att_arr;
+        }
+
+        if(get_post('mark_attendance')) {
+            $this->updateAttendance($user_model);
+        }
+        
+        if(get_post('year_id') && get_post('month_id')) {
+            $this->data['end_date'] = date('t', strtotime(get_post('year_id').'-'.get_post('month_id')));
+        }
+
+        $this->view->render("users/mark_attendance", "template", $this->data);
+    }
+
+    private function updateAttendance($model=null) {
+        $resp['errors'] = array();
+        $resp = array();
+        try {
+            if(empty(get_post("user_id"))) {
+                $resp['errors']["user_id"] = "Staff is required";
+            } elseif(empty(get_post("date"))) {
+                $resp['errors']["date"] = "Date is required";
+            } else {
+                $res = $model->createOrUpdateAttendanceRecord($_POST);
+                if($res) {
+                    $message = "Attendance Successfully saved.";
+                    $resp = array('message'=> $message, 'success' => 1);
+                } else {
+                    $resp['message'] = "Unable to save data, please try again.";
+                }
+            }
+        } catch(Exception $e) {
+            $resp = array('message' => $e, 'error'=>1);
+        }
+
+        echo json_encode($resp); exit;
+    }
+    
 }

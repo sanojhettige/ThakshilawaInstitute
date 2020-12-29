@@ -14,6 +14,7 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>NIC No</th>
                 <th>Gurdian Name</th>
                 <th>Last Update Date</th>
                 <th>Actions</th>
@@ -23,6 +24,7 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>NIC No</th>
                 <th>Gurdian Name</th>
                 <th>Last Update Date</th>
                 <th>Actions</th>

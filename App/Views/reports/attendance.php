@@ -1,7 +1,7 @@
 <form method="post" action="" class="row">
     <div class="form-group col-md-3">
         <label for="year_id">Year</label>
-        <select required class="form-control" name="year_id" id="year_id">
+        <select class="form-control" name="year_id" id="year_id">
             <option value="">Select Year</option>
             <?php foreach($years as $item) { ?>
             <?php if(get_post('year_id') == $item['id']) { ?>
@@ -15,7 +15,7 @@
     </div>
     <div class="form-group col-md-3">
         <label for="month_id">Month</label>
-        <select required class="form-control" name="month_id" id="month_id">
+        <select class="form-control" name="month_id" id="month_id">
             <option value="">Select Month</option>
             <?php foreach($months as $item) { ?>
             <?php if(get_post('month_id') == $item['id']) { ?>
@@ -29,7 +29,7 @@
     </div>
     <div class="form-group col-md-3">
         <label for="class_id">Class</label>
-        <select required class="form-control" name="class_id" id="class_id">
+        <select class="form-control" name="class_id" id="class_id">
             <option value="">Select Class</option>
             <?php foreach($classess as $item) { ?>
             <?php if(get_post('class_id') == $item['id']) { ?>
@@ -44,7 +44,10 @@
     <div class="form-group col-md-3">
 
         <button style="margin-top:27px" type="submit" name="submit" value="1" class="btn btn-primary">Submit</button>
-        <!-- <button style="margin-top:27px" type="reset" class="btn btn-default">Reset</button> -->
+        <?php if(count($attendance)) { ?>
+        <a style="margin-top:27px" class="btn btn-warning" target="_blank"
+            href="/reports/attendance/student?print=1&year=<?= get_post('year_id'); ?>&month=<?= get_post('month_id'); ?>&class=<?= get_post('class_id'); ?>">Print</a>
+        <?php } ?>
         <input type="hidden" name="selected_year_id" id="selected_year_id" value="<?= get_post('year_id'); ?>">
         <input type="hidden" name="selected_month_id" id="selected_month_id" value="<?= get_post('month_id'); ?>">
         <input type="hidden" name="selected_class_id" id="selected_class_id" value="<?= get_post('class_id'); ?>">
@@ -68,21 +71,20 @@
             <?php } ?>
             <thead>
             <tbody>
-                <?php foreach($students as $row) { ?>
+                <?php foreach($attendance as $student=>$row) { ?>
                 <tr>
-                    <td><?= $row['name']; ?></td>
+                    <td><?= $student; ?></td>
                     <?php for($i = $start_date; $i <= $end_date; $i++) {
                     $active = "";
                     $checked = "";
                     $date = date("Y-m-d", strtotime(get_post('year_id').'-'.get_post('month_id').'-'.$i));
-                    $checked = $attendance[$row['id']][$date] ? "checked" : "";
+                    $checked = $row[$date] ? "/assets/img/check.png" : "/assets/img/crossed.png";
                     if($i == $today) {
                         $active = "active_date";
                     }  
                     ?>
-                    <td class="<?= $active; ?>">
-                        <input <?= $checked; ?> type="checkbox" id="<?= $row['id']; ?>"
-                            class="form-control att-checkbox" date="<?= $i; ?>" name="check-<?= $i.'-'.$row['id']; ?>">
+                    <td>
+                        <img src="<?= $checked; ?>" width="16px" />
                     </td>
                     <?php } ?>
                 <tr>

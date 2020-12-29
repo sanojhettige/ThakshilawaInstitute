@@ -1,7 +1,7 @@
 <form method="post" action="" class="row">
     <div class="form-group col-md-3">
         <label for="year_id">Year</label>
-        <select required class="form-control" name="year_id" id="year_id">
+        <select class="form-control" name="year_id" id="year_id">
             <option value="">Select Year</option>
             <?php foreach($years as $item) { ?>
             <?php if(get_post('year_id') == $item['id']) { ?>
@@ -15,7 +15,7 @@
     </div>
     <div class="form-group col-md-3">
         <label for="month_id">Month</label>
-        <select required class="form-control" name="month_id" id="month_id">
+        <select class="form-control" name="month_id" id="month_id">
             <option value="">Select Month</option>
             <?php foreach($months as $item) { ?>
             <?php if(get_post('month_id') == $item['id']) { ?>
@@ -26,20 +26,6 @@
             <?php } ?>
         </select>
         <span class="error-message"><?= isset($errors["month_id"]) ? $errors["month_id"]: ""; ?></span>
-    </div>
-    <div class="form-group col-md-3">
-        <label for="class_id">Class</label>
-        <select required class="form-control" name="class_id" id="class_id">
-            <option value="">Select Class</option>
-            <?php foreach($classess as $item) { ?>
-            <?php if(get_post('class_id') == $item['id']) { ?>
-            <option selected value="<?= $item['id']; ?>"><?= $item['class_name']; ?></option>
-            <?php } else { ?>
-            <option value="<?= $item['id']; ?>"><?= $item['class_name']; ?></option>
-            <?php } ?>
-            <?php } ?>
-        </select>
-        <span class="error-message"><?= isset($errors["class_id"]) ? $errors["class_id"]: ""; ?></span>
     </div>
     <div class="form-group col-md-3">
 

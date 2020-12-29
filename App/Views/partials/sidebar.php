@@ -39,7 +39,7 @@
                 </ul>
             </li>
             <?php } ?>
-            <?php if(in_array($userRole, array(1,2,4))) { ?>
+            <?php if(in_array($userRole, array(1,2,4,6))) { ?>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" data-target="#students">
                     <span data-feather="layers"></span>
@@ -67,7 +67,7 @@
                 </a>
             </li>
             <?php } ?>
-            <?php if(in_array($userRole, array(1,2))) { ?>
+            <?php if(in_array($userRole, array(1,2,6,5))) { ?>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" data-target="#reports">
                     <span data-feather="layers"></span>
@@ -77,29 +77,35 @@
                     <?php if(in_array($userRole, array(2))) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/reports/income">
-                            <span class="nav-link-text">Income</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/reports/expences">
-                            <span class="nav-link-text">Expences</span>
+                            <span class="nav-link-text">Income/Expence</span>
                         </a>
                     </li>
                     <?php } ?>
-                    <?php if(in_array($userRole, array(1))) { ?>
+                    <?php if(in_array($userRole, array(1,6,5))) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/reports/attendance">
-                            <span class="nav-link-text">Attendance</span>
+                        <a class="nav-link" href="/reports/attendance/student">
+                            <span class="nav-link-text">Student Attendance</span>
                         </a>
                     </li>
+                    <?php } ?>
+                    <?php if(in_array($userRole, array(1,5))) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/reports/schedule">
+                        <a class="nav-link" href="/reports/attendance/employee">
+                            <span class="nav-link-text">Emp. Attendance</span>
+                        </a>
+                    </li>
+                    <?php } ?>
+                    <?php if(in_array($userRole, array(1,5))) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reports/class_schedule">
                             <span class="nav-link-text">Class Schedule</span>
                         </a>
                     </li>
+                    <?php } ?>
+                    <?php if(in_array($userRole, array(1,5))) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/reports/income">
-                            <span class="nav-link-text">Income</span>
+                            <span class="nav-link-text">Income/Expence</span>
                         </a>
                     </li>
                     <?php } ?>
@@ -123,12 +129,24 @@
 
             </li>
             <?php } ?>
-            <?php if(in_array($userRole, array(1,2))) { ?>
+            <?php if(in_array($userRole, array(1,2,5))) { ?>
             <li class="nav-item">
-                <a class="nav-link" href="/users">
+                <a class="nav-link" data-toggle="collapse" data-target="#staff">
                     <span data-feather="layers"></span>
-                    Users
+                    Staff <span class="pull-right"><b class="caret"></b>
                 </a>
+                <ul class="nav-second-level collapse" id="staff">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users">
+                            <span class="nav-link-text">User List</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/attendance">
+                            <span class="nav-link-text">Attendance</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <?php } ?>
             <?php if(in_array($userRole, array(1,2, 3, 4, 5, 6))) { ?>

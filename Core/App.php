@@ -20,7 +20,7 @@ Class App {
         }
 
         if(!empty($routes[3])) {
-            $params = $routes[3];
+            $params = array_slice($routes, 3);
         }
         $url_ctrl = $controller;
         $controller = str_replace(" ","",ucwords(str_replace('-', ' ', $controller)));
@@ -40,7 +40,7 @@ Class App {
         
         if(method_exists($ctrl, $method)) {
             if(is_permitted($url_ctrl.'-'.$method) || (get_user_id() > 0 && $url_ctrl === "dashboard") || ($url_ctrl === "Auth" || $url_ctrl === "auth")) {
-                $ctrl->$method($params);
+                $ctrl->$method($params[0], $params[1], $params[2]);
             } else {
                 App::ErrorPage("No Permission");
             }

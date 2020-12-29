@@ -149,3 +149,15 @@ function months() {
         array('id'=>12,'title'=>'December'),
     );
 }
+
+function days() {
+    return array(
+        array('id'=>1,'title'=>'Sunday'),
+        array('id'=>2,'title'=>'Monday'),
+        array('id'=>3,'title'=>'Thuesday'),
+        array('id'=>4,'title'=>'Wednesday'),
+        array('id'=>5,'title'=>'Thursday'),
+        array('id'=>6,'title'=>'Friday'),
+        array('id'=>7,'title'=>'Saturday')
+    );
+}

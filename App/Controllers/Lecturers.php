@@ -54,6 +54,20 @@ Class Lecturers extends Controller {
         $this->data['record'] = array();
         $this->data['title'] = "Add lecturer";
         $lecturer_model = $this->model->load('lecturer');
+        $class_model = $this->model->load('class');
+
+        $this->data['assets'] = array(
+            'css'=>array(
+                BASE_URL.'/assets/css/bootstrap-multiselect.css'
+            ),
+            'js'=>array(
+                BASE_URL.'/assets/js/bootstrap-multiselect.js'
+            )
+        );
+
+        $res = $class_model->getClassess(100,0, '');
+        $this->data['classess'] = $res['data'];
+
         if(get_post('submit')) {
             $this->createOrUpdateLecturer($lecturer_model);
         }
@@ -63,8 +77,22 @@ Class Lecturers extends Controller {
     public function edit($id=null) {
         $this->data['title'] = "Update lecturer";
         $lecturer_model = $this->model->load('lecturer');
+        $class_model = $this->model->load('class');
+        $res = $class_model->getClassess(100,0, '');
+        $this->data['classess'] = $res['data'];
+        
+        $this->data['assets'] = array(
+            'css'=>array(
+                BASE_URL.'/assets/css/bootstrap-multiselect.css'
+            ),
+            'js'=>array(
+                BASE_URL.'/assets/js/bootstrap-multiselect.js'
+            )
+        );
         if($id > 0) {
+            $classess = $lecturer_model->getLectureClassess($id);
             $this->data['record'] = $lecturer_model->getLecturerById($id);
+            $this->data['record']['class_id'] = $classess;
         }
         if(get_post('submit')) {
             $this->createOrUpdateLecturer($lecturer_model);

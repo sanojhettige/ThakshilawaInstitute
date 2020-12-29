@@ -18,8 +18,8 @@ Class Auth extends Controller {
                 $role = $user_role_model->getUserRoleById($res['role_id']);
                 $_SESSION['user_id'] = $res['id'];
                 $_SESSION['role_id'] = $res['role_id'];
+                $_SESSION['ref_id'] = $res['reference_id'];
                 $_SESSION['role_name'] = $role['name'];
-                $_SESSION['assigned_center'] = $res['collection_center_id'];
                 $_SESSION['logged_in'] = true;
                 $_SESSION['logged_in_time'] = date("Y-m-d h:i:s");
                 header("Location: ".BASE_URL."/dashboard");
@@ -43,11 +43,9 @@ Class Auth extends Controller {
 
     public function reset_password() {
         $user_model = $this->model->load('user');
-        $cc_model = $this->model->load('collectionCenter');
         if(isset($_POST['do_reset'])) {
             $this->resetPassword($user_model);
         }
-        $this->data['collection_centers'] = $cc_model->getCollectionCentersDropdownData();
         $this->view->render("auth/reset_password", "auth", $this->data);
         clear_messages();
     }
@@ -97,8 +95,6 @@ Class Auth extends Controller {
         try {
             if(empty(get_post("pin"))) {
                 $this->data['message'] = "PIN is required";
-            } elseif(empty(get_post("collection_center"))) {
-                $this->data['message'] = "Collection Center is required";
             } elseif(empty(get_post("password"))) {
                 $this->data['message'] = "Password is required";
             } else if(!$model->validPin(get_post('pin'), get_post('username'))) {

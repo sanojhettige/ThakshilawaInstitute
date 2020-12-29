@@ -1,5 +1,7 @@
+<?php $roleId = get_session('role_id'); ?>
 <div class="container">
     <div class="row">
+        <?php if(in_array($userRole, array(1,2,3,4,5))) { ?>
         <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="card">
                 <img class="card-img-top" src="<?= BASE_URL.'/assets/img/teacher.png'; ?>" alt="Teacher">
@@ -11,6 +13,8 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
+        <?php if(in_array($userRole, array(1,2,3,4,5,6))) { ?>
         <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="card">
                 <img class="card-img-top" src="<?= BASE_URL.'/assets/img/student.png'; ?>" alt="Student">
@@ -22,7 +26,8 @@
                 </div>
             </div>
         </div>
-
+        <?php } ?>
+        <?php if(in_array($userRole, array(1,2,3,4,5,6))) { ?>
         <div class="clearfix hidden-sm-down hidden-lg-up"></div>
         <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="card">
@@ -35,6 +40,8 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
+        <?php if(in_array($userRole, array(1,2,3,4,5,6))) { ?>
         <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="card">
                 <img class="card-img-top" src="<?= BASE_URL.'/assets/img/subject.png'; ?>" alt="Subject">
@@ -46,6 +53,8 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
+        <?php if(in_array($userRole, array(1,2,3,4,5))) { ?>
         <!-- Purchases -->
         <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="card">
@@ -58,6 +67,8 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
+        <?php if(in_array($userRole, array(1,2,3,4,5))) { ?>
         <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="card">
                 <img class="card-img-top" src="<?= BASE_URL.'/assets/img/income.png'; ?>" alt="Income">
@@ -69,6 +80,8 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
+        <?php if(in_array($userRole, array(1,2,3,4,5))) { ?>
         <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="card">
                 <img class="card-img-top" src="<?= BASE_URL.'/assets/img/income.png'; ?>" alt="Income">
@@ -80,6 +93,8 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
+        <?php if(in_array($userRole, array(1,2,3,4,5))) { ?>
         <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="card">
                 <img class="card-img-top" src="<?= BASE_URL.'/assets/img/attendance.png'; ?>" alt="Attendance">
@@ -91,6 +106,8 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
+        <?php if(in_array($userRole, array(1,2,3,4,5))) { ?>
         <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="card">
                 <img class="card-img-top" src="<?= BASE_URL.'/assets/img/attendance.png'; ?>" alt="Attendance">
@@ -102,6 +119,8 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
+        <?php if(in_array($userRole, array(1,2,3,4,5))) { ?>
         <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="card">
                 <img class="card-img-top" src="<?= BASE_URL.'/assets/img/attendance.png'; ?>" alt="Attendance">
@@ -113,5 +132,6 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
     </div>
 </div>

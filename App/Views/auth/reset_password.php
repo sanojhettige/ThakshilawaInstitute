@@ -15,7 +15,6 @@ if(isset($error_message) || get_session('error_message')) {
 
     <div class="auth-form-container">
         <form class="paddy-signin-form" action="" method="post">
-            <img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Reset Your Password</h1>
             <div class="form-group">
                 <label for="username" class="sr-only">Username</label>
@@ -25,21 +24,6 @@ if(isset($error_message) || get_session('error_message')) {
             <div class="form-group">
                 <label for="pin" class="sr-only">Security PIN</label>
                 <input type="text" id="pin" name="pin" class="form-control" placeholder="PIN" required autofocus>
-            </div>
-            <div class="form-group">
-                <select class="form-control" name="collection_center" id="collection_center">
-                    <option value="">Select Collection Center</option>
-                    <?php foreach($collection_centers as $item) { ?>
-                    <?php if(get_post('collection_center') === $item['id'] || $record['collection_center_id'] === $item['id']) { ?>
-                    <option selected value="<?= $item['id']; ?>"><?= $item['name']; ?></option>
-                    <?php } else { ?>
-                    <option value="<?= $item['id']; ?>"><?= $item['name']; ?></option>
-                    <?php } ?>
-                    <?php } ?>
-
-                </select>
-                <span
-                    class="error-message"><?= isset($errors["collection_center"]) ? $errors["collection_center"]: ""; ?></span>
             </div>
 
             <div class="form-group">

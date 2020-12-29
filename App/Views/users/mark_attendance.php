@@ -28,26 +28,11 @@
         <span class="error-message"><?= isset($errors["month_id"]) ? $errors["month_id"]: ""; ?></span>
     </div>
     <div class="form-group col-md-3">
-        <label for="class_id">Class</label>
-        <select required class="form-control" name="class_id" id="class_id">
-            <option value="">Select Class</option>
-            <?php foreach($classess as $item) { ?>
-            <?php if(get_post('class_id') == $item['id']) { ?>
-            <option selected value="<?= $item['id']; ?>"><?= $item['class_name']; ?></option>
-            <?php } else { ?>
-            <option value="<?= $item['id']; ?>"><?= $item['class_name']; ?></option>
-            <?php } ?>
-            <?php } ?>
-        </select>
-        <span class="error-message"><?= isset($errors["class_id"]) ? $errors["class_id"]: ""; ?></span>
-    </div>
-    <div class="form-group col-md-3">
 
         <button style="margin-top:27px" type="submit" name="submit" value="1" class="btn btn-primary">Submit</button>
         <!-- <button style="margin-top:27px" type="reset" class="btn btn-default">Reset</button> -->
         <input type="hidden" name="selected_year_id" id="selected_year_id" value="<?= get_post('year_id'); ?>">
         <input type="hidden" name="selected_month_id" id="selected_month_id" value="<?= get_post('month_id'); ?>">
-        <input type="hidden" name="selected_class_id" id="selected_class_id" value="<?= get_post('class_id'); ?>">
     </div>
 
 </form>
@@ -55,7 +40,7 @@
 <div class="row">
     <table class="table" style="width: 98%; display: block; overflow-x: auto; white-space: nowrap;">
         <thead>
-            <th width="200">Student Name</th>
+            <th width="200">Staff Name</th>
             <?php for($i = $start_date; $i <= $end_date; $i++) {
                 $active = "";
                 if($i == $today) {
@@ -68,7 +53,7 @@
             <?php } ?>
             <thead>
             <tbody>
-                <?php foreach($students as $row) { ?>
+                <?php foreach($staff as $row) { ?>
                 <tr>
                     <td><?= $row['name']; ?></td>
                     <?php for($i = $start_date; $i <= $end_date; $i++) {
@@ -82,7 +67,8 @@
                     ?>
                     <td class="<?= $active; ?>">
                         <input <?= $checked; ?> type="checkbox" id="<?= $row['id']; ?>"
-                            class="form-control att-checkbox" date="<?= $i; ?>" name="check-<?= $i.'-'.$row['id']; ?>">
+                            class="form-control staff-att-checkbox" date="<?= $i; ?>"
+                            name="check-<?= $i.'-'.$row['id']; ?>">
                     </td>
                     <?php } ?>
                 <tr>

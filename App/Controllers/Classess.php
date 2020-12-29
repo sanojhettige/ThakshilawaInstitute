@@ -63,6 +63,16 @@ Class Classess extends Controller {
         if(get_post('submit')) {
             $this->createOrUpdateClass($class_model);
         }
+
+        $this->data['assets'] = array(
+            'css'=>array(
+                BASE_URL.'/assets/css/bootstrap-multiselect.css'
+            ),
+            'js'=>array(
+                BASE_URL.'/assets/js/bootstrap-multiselect.js'
+            )
+        );
+
         $this->view->render("classess/class_form", "template", $this->data);
     }
 
@@ -70,7 +80,9 @@ Class Classess extends Controller {
         $this->data['title'] = "Update class";
         $class_model = $this->model->load('class');
         if($id > 0) {
+            $days = $class_model->getClassDays($id);
             $this->data['record'] = $class_model->getClassById($id);
+            $this->data['record']['day_id'] = $days;
         }
         if(get_post('submit')) {
             $this->createOrUpdateClass($class_model);
@@ -82,6 +94,15 @@ Class Classess extends Controller {
         $this->data['lecturers'] = $lecturer_model->getLecturers()['data'];
         $this->data['subjects'] = $subject_model->getSubjects()['data'];
 
+        $this->data['assets'] = array(
+            'css'=>array(
+                BASE_URL.'/assets/css/bootstrap-multiselect.css'
+            ),
+            'js'=>array(
+                BASE_URL.'/assets/js/bootstrap-multiselect.js'
+            )
+        );
+        
         $this->view->render("classess/class_form", "template", $this->data);
     }
 

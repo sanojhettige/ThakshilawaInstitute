@@ -26,11 +26,23 @@
     </div>
     <div class="form-group">
         <label for="nic_no">NIC No</label>
-        <input
-            value="<?= get_post('nic_no') ? get_post('nic_no') : ($record ? $record['nic_no'] : ''); ?>"
-            type="text" class="form-control" required id="nic_no" name="nic_no" placeholder="">
+        <input value="<?= get_post('nic_no') ? get_post('nic_no') : ($record ? $record['nic_no'] : ''); ?>" type="text"
+            class="form-control" required id="nic_no" name="nic_no" placeholder="">
         <span class="error-message"><?= isset($errors["nic_no"]) ? $errors["nic_no"]: ""; ?></span>
     </div>
+    <!-- <div class="form-group">
+        <label for="nic_no">Classess</label>
+        <select class="form-control" name="class_id[]" id="class_id" multiple="multiple">
+            <?php foreach($classess as $item) { ?>
+            <?php if(in_array($item['id'], get_post('class_id[]')) || in_array($item['id'], $record['class_id'])) { ?>
+            <option selected value="<?= $item['id']; ?>"><?= $item['class_name']; ?></option>
+            <?php } else { ?>
+            <option value="<?= $item['id']; ?>"><?= $item['class_name']; ?></option>
+            <?php } ?>
+            <?php } ?>
+        </select>
+        <span class="error-message"><?= isset($errors["class_id"]) ? $errors["class_id"]: ""; ?></span>
+    </div> -->
 
 
     <input type="hidden" value="<?= $record ? $record['id'] : ''; ?>" name="_id">

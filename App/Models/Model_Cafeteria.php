@@ -54,4 +54,23 @@ Class Model_Cafeteria extends Model {
             ));
         }
     }
+
+    function getTransactionReport($year=null, $month=null) {
+        $year = $year ? $year : date("Y");
+        $month = $month ? $month : date("m");
+        $date1 = date("Y-m-01 00:00:01",strtotime($year.'-'.$month.'-01'));
+        $date2 = date("Y-m-t 23:59:59",strtotime($year.'-'.$month.'-30'));
+        
+        $sql = "SELECT created_at,id,title,amount,description,modified_at, transaction_type from ".$this->table." where status = 1";
+
+        $sql .=" and created_at  between '".$date1."' and '".$date2."'";
+        $sql .=" order by created_at asc";
+// echo $month; exit;
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        $records = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $records;
+    }
+    
 }

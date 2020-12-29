@@ -113,6 +113,7 @@ $(document).ready(function() {
         "columns": [
             { "data": "id" },
             { "data": "name" },
+            { "data": "nic_no" },
             { "data": "gurdian_name" },
             { "data": "modified_at" },
             {
@@ -126,6 +127,9 @@ $(document).ready(function() {
 
                     if (data.view)
                         content += '<a href="/students/view/' + data.id + '" class="btn btn-success btn-sm">View</a>';
+
+                    if (data.payment)
+                        content += '<a href="/students/payment/' + data.id + '" class="btn btn-success btn-sm">Add Fee</a>';
 
                     if (data.delete)
                         content += '<a href="/students/delete/' + data.id + '" id="' + data.id + '" class="btn btn-danger btn-sm deleteRecord">Delete</a>';

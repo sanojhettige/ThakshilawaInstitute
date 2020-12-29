@@ -8,10 +8,6 @@
             <td>Email</td>
             <td><?= ($record ? $record['email'] : ''); ?></td>
         </tr>
-        <tr>
-            <td>Collection Center</td>
-            <td><?= ($record ? $record['collection_center']['name'] : ''); ?></td>
-        </tr>
     </table>
 
 

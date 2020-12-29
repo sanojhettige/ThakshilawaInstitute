@@ -11,16 +11,10 @@ class MYPDF extends TCPDF {
     }
 
     public function Header() {
-        // Logo
-
         $this->SetY(10);
         $this->SetXY(5,10);
         $this->SetFont('helvetica', 'B', 12);
         $this->Cell(0, 15, strtoupper($this->app_data['app_name']), 0, false, 'L', 0, 'B', 0, false, 'M', 'M');
-        $this->SetY(10);
-        $this->SetXY(5,10);
-        $this->SetFont('helvetica', '', 11);
-        $this->Cell(0, 15, strtoupper($this->record['collection_center']), 0, false, 'L', 0, 'B', 0, false, 'M', 'M');
         $this->SetXY(5,15);
         $this->SetFont('helvetica', '', 8);
         $this->Cell(0, 15, 'Address - '.strip_tags($this->app_data['address']), 0, false, 'L', 0, '', 0, false, 'M', 'M');
@@ -31,7 +25,13 @@ class MYPDF extends TCPDF {
 
         $this->SetXY(160,9);
         $this->SetFont('helvetica', 'B', 14);
-        $this->Cell(0, 15, 'STOCK REPORT', 0, false, 'R', 0, 'B', 0, false, 'M', 'M');
+        $this->Cell(0, 15, 'STUDENT ATTENDANCE REPORT', 0, false, 'R', 0, 'B', 0, false, 'M', 'M');
+        $this->SetXY(160,14);
+        $this->SetFont('helvetica', '', 10);
+        $title = get_post('year_id') ? get_post('year_id'): "";
+        $title .= get_post('month_id') ? " ".date("F", strtotime("2020-".get_post('month_id')."-01")): "";
+        $title .= get_post('class_name') ? " ".get_post('class_name'): "";
+        $this->Cell(0, 15, $title, 0, false, 'R', 0, 'B', 0, false, 'M', 'M');
 
         $xVal = 5;
         $yVal = 13;
@@ -60,18 +60,17 @@ class MYPDF extends TCPDF {
 $rowperPage =25;
 $pageTemplate = 1;
 $tableStartYAx = 30;
-$orientation = "P";
-$width = 175;  
-$height = 266;
+$width = 266;  
+$height = 175;
 $orientation = ($height>$width) ? 'P' : 'L'; 
 $itemsPerHalfPage = $rowperPage;
+$userRole = get_user_role();
+
+$totalItems = count($attendance);
 
 
-$totalItems = count($report);
-
-
-$totalPages = count($report)%$rowperPage;
-$page_num = intval(count($report)/$rowperPage);
+$totalPages = count($attendance)%$rowperPage;
+$page_num = intval(count($attendance)/$rowperPage);
 
 if($totalPages == 0) {
     $pages = $page_num;
@@ -79,7 +78,8 @@ if($totalPages == 0) {
     $pages = $page_num + 1;
 }
 
-$rows = array_chunk($report, $rowperPage);
+// print_r($attendance); exit;
+$rows = array_chunk($attendance, $rowperPage);
 
 
 // $pdf->addFormat("custom", $width, $height);  
@@ -92,9 +92,9 @@ $pdf->setData($app_data, $record);
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('PSC');
-$pdf->SetTitle('Stock report');
-$pdf->SetSubject('Stock report');
-$pdf->SetKeywords('StockReport');
+$pdf->SetTitle('Attendance report');
+$pdf->SetSubject('Attendance report');
+$pdf->SetKeywords('AttendanceReport');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
@@ -149,41 +149,43 @@ for ($i=0; $i < $pages; $i++) {
 
     $table = <<<EOD
     <table cellspacing="0" cellpadding="1" border="0.5">
-    <tr style="font-size:12px; height: 20px;">
-    EOD;
-    if($centerId <= 0) {
-        $table .= <<<EOD
-        <td border="0.5" style="text-align:left; height: 20px;">Collection Center</td>
-        EOD;
-    }
-    
-    $table .= <<<EOD
-        <td border="0.5" style="text-align:left;">Paddy Type</td>
-        <td border="0.5" style="text-align:right;">Available Stock</td>
-    </tr>
-EOD;
-
-    foreach ($rows[$i] as $key=>$row):
-        $name = $row['collection_center'];
-        $paddy_name = $row['paddy_name'];
-        $available_stock = $row['available_stock'];
-//
-    $table .= <<<EOD
     <tr>
     EOD;
-    if($centerId <= 0) {
+
     $table .= <<<EOD
-        <td style="text-align:left;">$name</td>
+        <td border="0.5" style="text-align:left; width: 150px;">Student Name</td>
         EOD;
-    }
-        $table .= <<<EOD
-        <td style="text-align:left;">$paddy_name</td>
-        <td style="text-align:right;">$available_stock</td>
-    </tr>
+        for($i = $start_date; $i <= $end_date; $i++) {
+            $table .= <<<EOD
+        <td border="0.5" style="text-align:center; width:24px;">$i</td>
+        EOD;
+        }
+    $table .= <<<EOD
+            </tr>
 EOD;
 
-    $yVal += 5;
-    $r++; endforeach;
+foreach($attendance as $student=>$row) { 
+    $table .= <<<EOD
+        <tr>
+        EOD;
+    $table .= <<<EOD
+        <td border="0.5" style="text-align:left;">$student</td>
+        EOD;
+        for($i = $start_date; $i <= $end_date; $i++) {
+            $checked = "";
+            $date = date("Y-m-d", strtotime(get_post('year_id').'-'.get_post('month_id').'-'.$i));
+            $checked = $row[$date] ? "P" : "-";
+
+            $table .= <<<EOD
+        <td border="0.5" style="text-align:center; width:24px;">$checked</td>
+        EOD;
+        }
+        
+        $table .= <<<EOD
+        </tr>
+        EOD;
+
+}
 
     $table .= <<<EOD
 </table>
@@ -198,7 +200,7 @@ EOD;
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('stock.pdf', 'I');
+$pdf->Output('attendance.pdf', 'I');
 
 //============================================================+
 // END OF FILE
